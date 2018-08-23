@@ -1,8 +1,19 @@
-lazy val core = project.in(file("."))
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+
+lazy val `cats-time` = project.in(file("."))
+  .settings(commonSettings, releaseSettings, skipOnPublishSettings)
+  .aggregate(coreJVM, coreJS)
+
+lazy val core = crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
+    .in(file("modules/core"))
     .settings(commonSettings, releaseSettings)
     .settings(
       name := "cats-time"
     )
+
+lazy val coreJS  = core.js
+lazy val coreJVM = core.jvm
 
 val catsV = "1.2.0"
 
@@ -25,8 +36,8 @@ lazy val commonSettings = Seq(
   addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.7" cross CrossVersion.binary),
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.2.4"),
   libraryDependencies ++= Seq(
-    "org.typelevel"               %% "cats-core"                  % catsV,
-    "org.typelevel"               %% "cats-testkit"               % catsV   % Test
+    "org.typelevel"               %%% "cats-core"                  % catsV,
+    "org.typelevel"               %%% "cats-testkit"               % catsV   % Test
   )
 )
 
