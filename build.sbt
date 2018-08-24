@@ -144,6 +144,8 @@ lazy val micrositeSettings = Seq(
   ),
   libraryDependencies += "com.47deg" %% "github4s" % "0.18.6",
   micrositePushSiteWith := GitHub4s,
+  micrositeGitterChannel := true,
+  micrositeGitterChannelUrl := "typelevel/cats",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
 )
 

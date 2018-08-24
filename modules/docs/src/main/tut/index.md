@@ -18,3 +18,40 @@ libraryDependencies ++= Seq(
   "io.chrisdavenport" %% "cats-time"     % "<version>"
 )
 ```
+
+## Examples
+
+First lets start with some imports.
+
+```tut:silent
+import io.chrisdavenport.cats.time._
+import cats._
+import cats.implicits._
+import java.time._
+```
+
+Then we can display the `Show` instances.
+
+```tut:book
+Duration.ofDays(3).show
+
+Instant.now.show
+
+LocalDate.now.show
+
+LocalDateTime.now.show
+
+LocalTime.now.show
+
+OffsetDateTime.now.show
+
+OffsetTime.now.show
+
+Period.ofWeeks(6).show
+
+YearMonth.now.show
+
+ZoneId.systemDefault.show
+
+ZonedDateTime.now.show
+```
