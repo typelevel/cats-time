@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 lazy val `cats-time` = project.in(file("."))
   .settings(commonSettings, releaseSettings, skipOnPublishSettings)
-  .aggregate(coreJVM, coreJS)
+  .aggregate(coreJVM, coreJS, docs)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
     .crossType(CrossType.Pure)
@@ -14,6 +14,12 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
 
 lazy val coreJS  = core.js
 lazy val coreJVM = core.jvm
+
+lazy val docs = project.in(file("modules/docs"))
+  .settings(commonSettings,  micrositeSettings, skipOnPublishSettings)
+  .dependsOn(coreJVM)
+  .enablePlugins(MicrositesPlugin)
+  .enablePlugins(TutPlugin)
 
 val catsV = "1.2.0"
 
@@ -106,6 +112,41 @@ lazy val releaseSettings = {
     }
   )
 }
+
+lazy val micrositeSettings = Seq(
+  micrositeName := "cats-time",
+  micrositeDescription := "Cats Typeclasses for Java Time",
+  micrositeAuthor := "Christopher Davenport",
+  micrositeGithubOwner := "ChristopherDavenport",
+  micrositeGithubRepo := "cats-time",
+  micrositeBaseUrl := "/cats-time",
+  micrositeDocumentationUrl := "https://christopherdavenport.github.io/cats-time",
+  micrositeFooterText := None,
+  micrositeHighlightTheme := "atom-one-light",
+  micrositePalette := Map(
+    "brand-primary" -> "#3e5b95",
+    "brand-secondary" -> "#294066",
+    "brand-tertiary" -> "#2d5799",
+    "gray-dark" -> "#49494B",
+    "gray" -> "#7B7B7E",
+    "gray-light" -> "#E5E5E6",
+    "gray-lighter" -> "#F4F3F4",
+    "white-color" -> "#FFFFFF"
+  ),
+  fork in tut := true,
+  scalacOptions in Tut --= Seq(
+    "-Xfatal-warnings",
+    "-Ywarn-unused-import",
+    "-Ywarn-numeric-widen",
+    "-Ywarn-dead-code",
+    "-Ywarn-unused:imports",
+    "-Xlint:-missing-interpolator,_"
+  ),
+  libraryDependencies += "com.47deg" %% "github4s" % "0.18.6",
+  micrositePushSiteWith := GitHub4s,
+  micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
+)
+
 
 lazy val mimaSettings = {
   import sbtrelease.Version
