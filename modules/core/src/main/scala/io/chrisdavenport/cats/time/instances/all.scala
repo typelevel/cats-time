@@ -5,6 +5,7 @@ trait all extends duration
   with localdate
   with localdatetime
   with localtime
+  with offsetdatetime
   with hashWithOrder 
   with show
 

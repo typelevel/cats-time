@@ -4,7 +4,6 @@ import cats._
 import cats.implicits._
 
 import java.time.{
-  OffsetDateTime,
   OffsetTime,
   Period,
   YearMonth,
@@ -13,7 +12,6 @@ import java.time.{
 }
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.{
-  ISO_OFFSET_DATE_TIME,
   ISO_OFFSET_TIME,
   ISO_ZONED_DATE_TIME
 }
@@ -27,14 +25,6 @@ trait show {
 
   implicit final val showZonedDateTimeDefault = showZonedDateTime(ISO_ZONED_DATE_TIME)
 
-  //
-
-  final def showOffsetDateTime(formatter: DateTimeFormatter): Show[OffsetDateTime] =
-    Show[String].contramap(_.format(formatter))
-
-  implicit final val showOffsetDateTimeDefault = showOffsetDateTime(ISO_OFFSET_DATE_TIME)
-
-  //
 
   final def showOffsetTime(formatter: DateTimeFormatter): Show[OffsetTime] =
     Show[String].contramap(_.format(formatter))
