@@ -2,21 +2,24 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 lazy val `cats-time` = project.in(file("."))
   .settings(commonSettings, releaseSettings, skipOnPublishSettings)
-  .aggregate(core, docs)
+  .aggregate(coreJS, coreJVM, docs)
 
-lazy val core = project
+lazy val core = crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
     .in(file("modules/core"))
     .settings(commonSettings, releaseSettings)
     .settings(
       name := "cats-time"
+    ).jsSettings(
+      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-M13"
     )
 
-// lazy val coreJS  = core.js
-// lazy val coreJVM = core.jvm
+lazy val coreJS  = core.js
+lazy val coreJVM = core.jvm
 
 lazy val docs = project.in(file("modules/docs"))
   .settings(commonSettings,  micrositeSettings, skipOnPublishSettings)
-  .dependsOn(core)
+  .dependsOn(coreJVM)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
