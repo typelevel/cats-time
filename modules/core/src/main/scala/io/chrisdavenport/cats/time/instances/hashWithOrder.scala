@@ -3,7 +3,6 @@ package io.chrisdavenport.cats.time.instances
 import cats._
 
 import java.time.{
-  Instant,
   LocalDate,
   LocalDateTime,
   LocalTime,
@@ -14,11 +13,6 @@ import java.time.{
 }
 
 trait hashWithOrder {
-  implicit final val hashWithOrderInstant: Hash[Instant] with Order[Instant] =
-    new Hash[Instant] with Order[Instant] {
-      override def hash(x: Instant): Int = x.hashCode
-      override def compare(x: Instant, y: Instant): Int = x.compareTo(y)
-    }
 
   implicit final val hashWithOrderLocalDateTime: Hash[LocalDateTime] with Order[LocalDateTime] =
     new Hash[LocalDateTime] with Order[LocalDateTime] {

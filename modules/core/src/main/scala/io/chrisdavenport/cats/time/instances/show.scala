@@ -5,7 +5,6 @@ import cats.implicits._
 
 import java.time.{
   Duration,
-  Instant,
   LocalDate,
   LocalDateTime,
   LocalTime,
@@ -27,7 +26,6 @@ import java.time.format.DateTimeFormatter.{
 }
 
 trait show {
-  implicit final val instantShow: Show[Instant] = Show.fromToString[Instant]
   implicit final val zoneIdShow : Show[ZoneId] = Show[String].contramap(_.getId)
 
   final def showLocalDateTime(formatter: DateTimeFormatter): Show[LocalDateTime] =
