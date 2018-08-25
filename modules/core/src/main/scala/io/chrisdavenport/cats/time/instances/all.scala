@@ -7,6 +7,7 @@ trait all extends duration
   with localtime
   with offsetdatetime
   with offsettime
+  with period
   with yearmonth
   with zoneddatetime
   with show
