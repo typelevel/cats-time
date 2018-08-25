@@ -24,16 +24,13 @@ object TimeArbitraries {
     } yield {b: B => a}
   }
 
-  private[this] val minInstant: Instant = Instant.EPOCH
-  private[this] val maxInstant: Instant = Instant.parse("3000-01-01T00:00:00.00Z")
-
   implicit val arbitraryZoneId: Arbitrary[ZoneId] = Arbitrary{
     import scala.collection.JavaConverters._
     Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.map(ZoneId.of).toSeq)
   }
 
   implicit val arbitraryInstant: Arbitrary[Instant] = Arbitrary(
-    Gen.choose(minInstant.getEpochSecond, maxInstant.getEpochSecond).map(Instant.ofEpochSecond)
+    Gen.choose(Instant.MIN.getEpochSecond, Instant.MAX.getEpochSecond).map(Instant.ofEpochSecond)
   )
 
   implicit val arbitraryPeriod: Arbitrary[Period] = Arbitrary(
