@@ -6,7 +6,7 @@ import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import TimeArbitraries._
 import java.time.ZonedDateTime
-import io.chrisdavenport.cats.time.instances.hashWithOrder._
+import io.chrisdavenport.cats.time.instances.zoneddatetime._
 
 class ZonedDateTimeTests extends CatsSuite {
   checkAll("ZonedDateTime", HashTests[ZonedDateTime].hash)

@@ -6,7 +6,7 @@ import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import TimeArbitraries._
 import java.time.OffsetDateTime
-import io.chrisdavenport.cats.time.instances.hashWithOrder._
+import io.chrisdavenport.cats.time.instances.offsetdatetime._
 
 class OffsetDateTimeTests extends CatsSuite {
   checkAll("OffsetDateTime", HashTests[OffsetDateTime].hash)

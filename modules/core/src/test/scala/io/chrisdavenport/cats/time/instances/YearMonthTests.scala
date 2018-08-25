@@ -6,7 +6,7 @@ import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import TimeArbitraries._
 import java.time.YearMonth
-import io.chrisdavenport.cats.time.instances.hashWithOrder._
+import io.chrisdavenport.cats.time.instances.yearmonth._
 
 class YearMonthTests extends CatsSuite {
   checkAll("YearMonth", HashTests[YearMonth].hash)

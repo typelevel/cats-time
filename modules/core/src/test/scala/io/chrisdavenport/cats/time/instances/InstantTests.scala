@@ -6,7 +6,7 @@ import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import TimeArbitraries._
 import java.time.Instant
-import io.chrisdavenport.cats.time.instances.hashWithOrder._
+import io.chrisdavenport.cats.time.instances.instant._
 
 class InstantTests extends CatsSuite {
   checkAll("Instant", HashTests[Instant].hash)
