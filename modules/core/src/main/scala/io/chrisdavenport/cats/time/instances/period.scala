@@ -9,3 +9,5 @@ trait period {
       override def show(x: Period): String = x.toString
     }
 }
+
+object period extends period

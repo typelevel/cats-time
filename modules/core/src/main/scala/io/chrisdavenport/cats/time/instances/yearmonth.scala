@@ -6,7 +6,6 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 trait yearmonth {
-
   final def showYearMonth(formatter: DateTimeFormatter): Show[YearMonth] =
     Show[String].contramap(_.format(formatter))
 
@@ -18,7 +17,6 @@ trait yearmonth {
       override def compare(x: YearMonth, y: YearMonth): Int = x.compareTo(y)
       override def show(x: YearMonth): String = x.format(yearMonthFormatter)
     }
-
 }
 
 object yearmonth extends yearmonth
