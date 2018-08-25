@@ -6,7 +6,7 @@ import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import TimeArbitraries._
 import java.time.LocalDate
-import io.chrisdavenport.cats.time.instances.hashWithOrder._
+import io.chrisdavenport.cats.time.instances.localdate._
 
 class LocalDateTests extends CatsSuite {
   checkAll("LocalDate", HashTests[LocalDate].hash)

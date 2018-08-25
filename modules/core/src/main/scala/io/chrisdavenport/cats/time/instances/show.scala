@@ -4,8 +4,6 @@ import cats._
 import cats.implicits._
 
 import java.time.{
-  Duration,
-  LocalDate,
   LocalDateTime,
   LocalTime,
   OffsetDateTime,
@@ -17,7 +15,6 @@ import java.time.{
 }
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.{
-  ISO_LOCAL_DATE,
   ISO_LOCAL_DATE_TIME,
   ISO_LOCAL_TIME,
   ISO_OFFSET_DATE_TIME,
@@ -49,10 +46,7 @@ trait show {
 
   //
 
-  final def showLocalDate(formatter: DateTimeFormatter): Show[LocalDate] =
-    Show[String].contramap(_.format(formatter))
-
-  implicit final val showLocalDateDefault = showLocalDate(ISO_LOCAL_DATE)
+  
 
   //
 
@@ -80,8 +74,6 @@ trait show {
   //
 
   implicit final val showPeriod : Show[Period] = Show.fromToString[Period]
-
-  implicit final val showDuration : Show[Duration] = Show.fromToString[Duration]
 
 
 }
