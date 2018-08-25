@@ -5,7 +5,6 @@ import cats.implicits._
 
 import java.time.{
   Period,
-  YearMonth,
   ZoneId,
   ZonedDateTime
 }
@@ -23,14 +22,6 @@ trait show {
 
   implicit final val showZonedDateTimeDefault = showZonedDateTime(ISO_ZONED_DATE_TIME)
 
-  final def showYearMonth(formatter: DateTimeFormatter): Show[YearMonth] =
-    Show[String].contramap(_.format(formatter))
-
-  private final val yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM")
-
-  implicit final val yearMonthPutDefault = showYearMonth(yearMonthFormatter)
-
-  //
 
   implicit final val showPeriod : Show[Period] = Show.fromToString[Period]
 
