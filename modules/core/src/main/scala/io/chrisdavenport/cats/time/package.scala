@@ -1,4 +1,3 @@
 package io.chrisdavenport.cats
 
-package object time extends instances.show
-  with instances.hashWithOrder
+package object time extends instances.all
