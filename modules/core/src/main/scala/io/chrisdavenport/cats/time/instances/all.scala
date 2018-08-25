@@ -6,7 +6,9 @@ trait all extends duration
   with localdatetime
   with localtime
   with offsetdatetime
-  with hashWithOrder 
+  with offsettime
+  with yearmonth
+  with zoneddatetime
   with show
 
 object all extends all
