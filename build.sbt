@@ -7,7 +7,7 @@ lazy val `cats-time` = project.in(file("."))
 lazy val core = crossProject(JSPlatform, JVMPlatform)
     .crossType(CrossType.Pure)
     .in(file("modules/core"))
-    .settings(commonSettings, releaseSettings)
+    .settings(commonSettings, releaseSettings, mimaSettings)
     .settings(
       name := "cats-time"
     ).jsSettings(
