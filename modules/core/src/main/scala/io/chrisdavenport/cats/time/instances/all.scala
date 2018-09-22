@@ -9,6 +9,7 @@ trait all
   with offsetdatetime
   with offsettime
   with period
+  with year
   with yearmonth
   with zoneddatetime
   with zoneid
