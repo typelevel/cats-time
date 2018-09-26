@@ -9,6 +9,7 @@ import java.time.{
   OffsetDateTime,
   OffsetTime,
   Period,
+  Year,
   YearMonth,
   ZonedDateTime,
   ZoneId
@@ -70,6 +71,9 @@ object TimeArbitraries {
 
   implicit val arbitraryYearMonth: Arbitrary[YearMonth] = Arbitrary(arbitrary[LocalDateTime].map(
     ldt => YearMonth.of(ldt.getYear, ldt.getMonth)))
+
+  implicit val arbitraryYear: Arbitrary[Year] = Arbitrary(arbitrary[LocalDateTime].map(
+    ldt => Year.of(ldt.getYear)))
 
   implicit val arbitraryDuration: Arbitrary[Duration] = Arbitrary(
     for {
