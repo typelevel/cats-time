@@ -38,7 +38,7 @@ onLoad in Global := { s =>
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
-  scalaVersion := "2.12.6",
+  scalaVersion := "2.12.7",
   crossScalaVersions := Seq(scalaVersion.value, "2.11.12"),
 
   addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.8" cross CrossVersion.binary),

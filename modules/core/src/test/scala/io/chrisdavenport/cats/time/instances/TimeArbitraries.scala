@@ -10,7 +10,7 @@ object TimeArbitraries {
   implicit def functionArbitrary[B, A: Arbitrary]: Arbitrary[B => A] = Arbitrary{
     for {
       a <- Arbitrary.arbitrary[A]
-    } yield {b: B => a}
+    } yield {_: B => a}
   }
 
   implicit val arbitraryZoneId: Arbitrary[ZoneId] = Arbitrary{
