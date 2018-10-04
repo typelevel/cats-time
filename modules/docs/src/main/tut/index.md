@@ -43,11 +43,15 @@ LocalDateTime.now.show
 
 LocalTime.now.show
 
+MonthDay.now.show
+
 OffsetDateTime.now.show
 
 OffsetTime.now.show
 
 Period.ofWeeks(6).show
+
+Year.now.show
 
 YearMonth.now.show
 
