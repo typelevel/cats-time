@@ -144,7 +144,7 @@ lazy val micrositeSettings = Seq(
     "-Ywarn-unused:imports",
     "-Xlint:-missing-interpolator,_"
   ),
-  libraryDependencies += "com.47deg" %% "github4s" % "0.18.8",
+  libraryDependencies += "com.47deg" %% "github4s" % "0.19.0",
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannel := true,
   micrositeGitterChannelUrl := "typelevel/cats",
