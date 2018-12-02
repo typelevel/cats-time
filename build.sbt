@@ -23,7 +23,7 @@ lazy val docs = project.in(file("modules/docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
-val catsV = "1.4.0"
+val catsV = "1.5.0"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
