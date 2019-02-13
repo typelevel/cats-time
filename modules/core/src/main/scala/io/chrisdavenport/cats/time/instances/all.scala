@@ -14,5 +14,6 @@ trait all
   with yearmonth
   with zoneddatetime
   with zoneid
+  with zoneoffset
 
 object all extends all
