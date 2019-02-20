@@ -18,6 +18,11 @@ object TimeArbitraries {
     Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.map(ZoneId.of).toSeq)
   }
 
+  implicit val arbitraryZoneOffset: Arbitrary[ZoneOffset] = Arbitrary{
+    // Range is specified in `ofTotalSeconds` javadoc.
+    Gen.choose(-64800, 64800).map(ZoneOffset.ofTotalSeconds)
+  }
+
   implicit val arbitraryInstant: Arbitrary[Instant] = Arbitrary(
     Gen.choose(Instant.MIN.getEpochSecond, Instant.MAX.getEpochSecond).map(Instant.ofEpochSecond)
   )
