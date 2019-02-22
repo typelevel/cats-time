@@ -12,10 +12,11 @@ trait yearmonth {
   private final val yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy-MM")
 
   implicit final val yearmonthInstances =
-    new Show[YearMonth] with Order[YearMonth] with Hash[YearMonth]{
+    new Show[YearMonth] with Order[YearMonth] with Hash[YearMonth] with Eq[YearMonth]{
       override def hash(x: YearMonth): Int = x.hashCode
       override def compare(x: YearMonth, y: YearMonth): Int = x.compareTo(y)
       override def show(x: YearMonth): String = x.format(yearMonthFormatter)
+      override def eqv(x: YearMonth, y: YearMonth): Boolean = x.equals(y)
     }
 }
 
