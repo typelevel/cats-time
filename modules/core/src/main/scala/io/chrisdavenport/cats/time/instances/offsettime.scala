@@ -10,11 +10,12 @@ trait offsettime {
   final def showOffsetTime(formatter: DateTimeFormatter): Show[OffsetTime] =
     Show[String].contramap(_.format(formatter))
 
-  implicit final val offsettimeInstances = 
-    new Show[OffsetTime] with Order[OffsetTime] with Hash[OffsetTime]{
+  implicit final val offsettimeInstances =
+    new Show[OffsetTime] with Order[OffsetTime] with Hash[OffsetTime] with Eq[OffsetTime]{
       override def hash(x: OffsetTime): Int = x.hashCode
       override def compare(x: OffsetTime, y: OffsetTime): Int = x.compareTo(y)
       override def show(x: OffsetTime): String = x.format(ISO_OFFSET_TIME)
+      override def eqv(x: OffsetTime, y: OffsetTime): Boolean = x.equals(y)
     }
 
 }
