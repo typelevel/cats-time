@@ -5,6 +5,7 @@ import java.time._
 import org.scalacheck.{ Arbitrary, Gen }
 import org.scalacheck.Arbitrary.arbitrary
 
+
 object TimeArbitraries {
 
   implicit def functionArbitrary[B, A: Arbitrary]: Arbitrary[B => A] = Arbitrary{
@@ -14,7 +15,7 @@ object TimeArbitraries {
   }
 
   implicit val arbitraryZoneId: Arbitrary[ZoneId] = Arbitrary{
-    import scala.collection.JavaConverters._
+    import scala.jdk.CollectionConverters._
     Gen.oneOf(ZoneId.getAvailableZoneIds.asScala.map(ZoneId.of).toSeq)
   }
 
