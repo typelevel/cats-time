@@ -11,7 +11,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     .settings(
       name := "cats-time"
     ).jsSettings(
-      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC1"
+      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3"
     )
 
 lazy val coreJS  = core.js
@@ -23,7 +23,8 @@ lazy val docs = project.in(file("modules/docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
-val catsV = "1.6.1"
+val catsV = "2.0.0-RC2"
+val catsTestkitV = "1.0.0-M1"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
@@ -33,14 +34,15 @@ lazy val contributors = Seq(
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.13.0-M5", scalaVersion.value, "2.11.12"),
+  scalaVersion := "2.13.0",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.9", "2.11.12"),
 
-  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.0" cross CrossVersion.binary),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0-M4"),
+  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
+  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
     "org.typelevel"               %%% "cats-core"                  % catsV,
-    "org.typelevel"               %%% "cats-testkit"               % catsV   % Test
+    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.2"      % Test,
+    "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV % Test
   )
 )
 
