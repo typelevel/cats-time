@@ -26,7 +26,7 @@ lazy val docs = project.in(file("modules/docs"))
   .enablePlugins(TutPlugin)
 
 val catsV = "2.0.0-RC2"
-val catsTestkitV = "1.0.0-M1"
+val catsTestkitV = "1.0.0-M2"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
