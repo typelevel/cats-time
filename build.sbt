@@ -25,7 +25,7 @@ lazy val docs = project.in(file("modules/docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
-val catsV = "2.0.0-RC2"
+val catsV = "2.0.0"
 val catsTestkitV = "1.0.0-M1"
 
 lazy val contributors = Seq(
