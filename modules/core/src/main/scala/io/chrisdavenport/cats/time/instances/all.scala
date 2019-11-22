@@ -6,6 +6,7 @@ trait all
   with localdate
   with localdatetime
   with localtime
+  with month
   with monthday
   with offsetdatetime
   with offsettime

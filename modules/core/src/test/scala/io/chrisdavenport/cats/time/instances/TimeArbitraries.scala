@@ -78,4 +78,7 @@ object TimeArbitraries {
 
   implicit val arbitraryMonthDay: Arbitrary[MonthDay] = Arbitrary(arbitrary[LocalDateTime].map(
     ldt => MonthDay.of(ldt.getMonth, ldt.getDayOfMonth)))
+
+  implicit val arbitraryMonth: Arbitrary[Month] = Arbitrary(arbitrary[LocalDateTime].map(
+    ldt => ldt.getMonth))
 }
