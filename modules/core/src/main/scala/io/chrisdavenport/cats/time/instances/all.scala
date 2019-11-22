@@ -16,4 +16,6 @@ trait all
   with zoneid
   with zoneoffset
 
-object all extends all
+trait all2 extends month
+
+object all extends all with all2
