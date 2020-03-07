@@ -1,32 +1,35 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-lazy val `cats-time` = project.in(file("."))
+lazy val `cats-time` = project
+  .in(file("."))
   .disablePlugins(MimaPlugin)
   .settings(commonSettings, releaseSettings, skipOnPublishSettings)
   .aggregate(coreJS, coreJVM)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
-    .crossType(CrossType.Pure)
-    .in(file("modules/core"))
-    .settings(commonSettings, releaseSettings, mimaSettings)
-    .settings(
-      name := "cats-time"
-    ).jsSettings(
-      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3"
-    )
+  .crossType(CrossType.Pure)
+  .in(file("modules/core"))
+  .settings(commonSettings, releaseSettings, mimaSettings)
+  .settings(
+    name := "cats-time"
+  )
+  .jsSettings(
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC4"
+  )
 
-lazy val coreJS  = core.js
+lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
 
-lazy val docs = project.in(file("modules/docs"))
-  .settings(commonSettings,  micrositeSettings, skipOnPublishSettings)
+lazy val docs = project
+  .in(file("modules/docs"))
+  .settings(commonSettings, micrositeSettings, skipOnPublishSettings)
   .dependsOn(coreJVM)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
-val catsV = "2.0.0"
-val catsTestkitV = "1.0.0-RC1"
+val catsV = "2.1.1"
+val catsTestkitV = "1.0.1"
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
@@ -35,16 +38,14 @@ lazy val contributors = Seq(
 // General Settings
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
-
-  scalaVersion := "2.13.0",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.9", "2.11.12"),
-
-  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
+  scalaVersion := "2.13.1",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.10"),
+  addCompilerPlugin("org.typelevel" % "kind-projector"      % "0.10.3" cross CrossVersion.binary),
+  addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel"               %%% "cats-core"                  % catsV,
-    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.4"      % Test,
-    "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV % Test
+    "org.typelevel" %%% "cats-core"                        % catsV,
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.4" % Test,
+    "org.typelevel" %%% "cats-testkit-scalatest"           % catsTestkitV % Test
   )
 )
 
@@ -78,13 +79,12 @@ lazy val releaseSettings = {
       for {
         username <- Option(System.getenv().get("SONATYPE_USERNAME"))
         password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
-      } yield
-        Credentials(
-          "Sonatype Nexus Repository Manager",
-          "oss.sonatype.org",
-          username,
-          password
-        )
+      } yield Credentials(
+        "Sonatype Nexus Repository Manager",
+        "oss.sonatype.org",
+        username,
+        password
+      )
     ).toSeq,
     publishArtifact in Test := false,
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
@@ -97,18 +97,16 @@ lazy val releaseSettings = {
     homepage := Some(url("https://github.com/ChristopherDavenport/cats-time")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     publishMavenStyle := true,
-    pomIncludeRepository := { _ =>
-      false
-    },
+    pomIncludeRepository := { _ => false },
     pomExtra := {
       <developers>
-        {for ((username, name) <- contributors) yield
-        <developer>
+        {
+        for ((username, name) <- contributors) yield <developer>
           <id>{username}</id>
           <name>{name}</name>
           <url>http://github.com/{username}</url>
         </developer>
-        }
+      }
       </developers>
     }
   )
@@ -143,23 +141,22 @@ lazy val micrositeSettings = Seq(
     "-Ywarn-unused:imports",
     "-Xlint:-missing-interpolator,_"
   ),
-  libraryDependencies += "com.47deg" %% "github4s" % "0.20.0",
+  libraryDependencies += "com.47deg" %% "github4s" % "0.22.0",
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannel := true,
   micrositeGitterChannelUrl := "typelevel/cats",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
 )
 
-
 lazy val mimaSettings = {
   import sbtrelease.Version
 
   def semverBinCompatVersions(major: Int, minor: Int, patch: Int): Set[(Int, Int, Int)] = {
     val majorVersions: List[Int] = List(major)
-    val minorVersions : List[Int] = 
+    val minorVersions: List[Int] =
       if (major >= 1) Range(0, minor).inclusive.toList
       else List(minor)
-    def patchVersions(currentMinVersion: Int): List[Int] = 
+    def patchVersions(currentMinVersion: Int): List[Int] =
       if (minor == 0 && patch == 0) List.empty[Int]
       else if (currentMinVersion != minor) List(0)
       else Range(0, patch - 1).inclusive.toList
@@ -176,7 +173,7 @@ lazy val mimaSettings = {
     Version(version) match {
       case Some(Version(major, Seq(minor, patch), _)) =>
         semverBinCompatVersions(major.toInt, minor.toInt, patch.toInt)
-          .map{case (maj, min, pat) => maj.toString + "." + min.toString + "." + pat.toString}
+          .map { case (maj, min, pat) => maj.toString + "." + min.toString + "." + pat.toString }
       case _ =>
         Set.empty[String]
     }
@@ -189,16 +186,14 @@ lazy val mimaSettings = {
 
   Seq(
     mimaFailOnNoPrevious := false,
-    mimaFailOnProblem := mimaVersions(version.value).toList.headOption.isDefined,
+    mimaFailOnProblem := mimaVersions(version.value).toList.nonEmpty,
     mimaPreviousArtifacts := (mimaVersions(version.value) ++ extraVersions)
-      .filterNot(excludedVersions.contains(_))
-      .map{v => 
+      .diff(excludedVersions)
+      .map { v =>
         val moduleN = moduleName.value + "_" + scalaBinaryVersion.value.toString
         organization.value % moduleN % v
       },
     mimaBinaryIssueFilters ++= {
-      import com.typesafe.tools.mima.core._
-      import com.typesafe.tools.mima.core.ProblemFilters._
       Seq()
     }
   )
@@ -211,3 +206,6 @@ lazy val skipOnPublishSettings = Seq(
   publishArtifact := false,
   publishTo := None
 )
+
+addCommandAlias("check", ";scalafmtCheckAll;scalafmtSbtCheck")
+addCommandAlias("fmt", ";scalafmtAll;scalafmtSbt")

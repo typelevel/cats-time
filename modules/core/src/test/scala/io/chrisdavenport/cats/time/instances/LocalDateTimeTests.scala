@@ -1,6 +1,5 @@
 package io.chrisdavenport.cats.time.instances
 
-
 import cats.tests.CatsSuite
 import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests

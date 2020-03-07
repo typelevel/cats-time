@@ -4,10 +4,8 @@ import cats._
 import java.time.Period
 
 trait period {
-  implicit final val periodInstances =
-    new Show[Period]{
-      override def show(x: Period): String = x.toString
-    }
+  implicit final val periodInstances: Show[Period] =
+    (x: Period) => x.toString
 }
 
 object period extends period

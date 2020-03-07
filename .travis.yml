@@ -2,8 +2,8 @@ sudo: false
 language: scala
 
 scala:
-  - 2.12.8
-  - 2.11.12
+  - 2.13.1
+  - 2.12.10
 
 jdk:
   - openjdk11
@@ -18,9 +18,10 @@ install:
   - gem install jekyll -v 3.2.1
 
 script:
+  - sbt check
   - sbt ++$TRAVIS_SCALA_VERSION test
-  - test $TRAVIS_SCALA_VERSION == "2.13.0-M5" || sbt ++$TRAVIS_SCALA_VERSION mimaReportBinaryIssues
-  - test $TRAVIS_SCALA_VERSION == "2.13.0-M5" || sbt ++$TRAVIS_SCALA_VERSION docs/makeMicrosite
+  - sbt ++$TRAVIS_SCALA_VERSION mimaReportBinaryIssues
+  - sbt ++$TRAVIS_SCALA_VERSION docs/makeMicrosite
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && test $TRAVIS_REPO_SLUG == "ChristopherDavenport/cats-time" && sbt ++$TRAVIS_SCALA_VERSION publish

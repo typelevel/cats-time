@@ -2,7 +2,7 @@ package io.chrisdavenport.cats.time.instances
 
 import java.time.MonthDay
 
-import cats.kernel.laws.discipline.{ HashTests, OrderTests }
+import cats.kernel.laws.discipline.{HashTests, OrderTests}
 import cats.tests.CatsSuite
 import io.chrisdavenport.cats.time.instances.monthday._
 import TimeArbitraries._

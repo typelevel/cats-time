@@ -10,8 +10,10 @@ trait localtime {
   final def showLocalTime(formatter: DateTimeFormatter): Show[LocalTime] =
     Show[String].contramap(_.format(formatter))
 
-  implicit final val localtimeInstances = 
-    new Show[LocalTime] with Order[LocalTime] with Hash[LocalTime]{
+  implicit final val localtimeInstances: Show[LocalTime]
+    with Order[LocalTime]
+    with Hash[LocalTime] =
+    new Show[LocalTime] with Order[LocalTime] with Hash[LocalTime] {
       override def hash(x: LocalTime): Int = x.hashCode
       override def compare(x: LocalTime, y: LocalTime): Int = x.compareTo(y)
       override def show(x: LocalTime): String = x.format(ISO_LOCAL_TIME)
