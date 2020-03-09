@@ -10,7 +10,7 @@ Time is a pain to deal with reasonably. So tread with caution.
 
 ## Quick Start
 
-To use cats-time in an existing SBT project with Scala 2.11 or a later version, add the following dependencies to your
+To use cats-time in an existing SBT project with Scala 2.12 or a later version, add the following dependencies to your
 `build.sbt` depending on your needs:
 
 ```scala

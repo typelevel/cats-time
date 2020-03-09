@@ -21,7 +21,7 @@ lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
 
 lazy val docs = project
-  .in(file("modules/docs"))
+  .in(file("modules"))
   .settings(commonSettings, micrositeSettings, skipOnPublishSettings)
   .dependsOn(coreJVM)
   .disablePlugins(MimaPlugin)
