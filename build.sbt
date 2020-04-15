@@ -43,7 +43,7 @@ lazy val commonSettings = Seq(
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
     "org.typelevel"               %%% "cats-core"                  % catsV,
-    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.4"      % Test,
+    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.5"      % Test,
     "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV % Test
   )
 )
