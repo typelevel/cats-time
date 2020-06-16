@@ -12,7 +12,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     .settings(
       name := "cats-time"
     ).jsSettings(
-      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3"
+      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
     )
 
 lazy val coreJS  = core.js
@@ -25,8 +25,9 @@ lazy val docs = project.in(file("modules/docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
 
-val catsV = "2.0.0"
-val catsTestkitV = "1.0.0-RC1"
+val catsV = Def.setting(if (scalaBinaryVersion.value == "2.11") "2.0.0" else "2.1.1")
+val catsTestkitV = Def.setting(if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1" else "1.0.1")
+val github4sV = Def.setting(if (scalaBinaryVersion.value == "2.11") "0.20.1" else "0.24.1")
 
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
@@ -36,15 +37,15 @@ lazy val contributors = Seq(
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
 
-  scalaVersion := "2.13.0",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.9", "2.11.12"),
+  scalaVersion := "2.13.2",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.11", "2.11.12"),
 
-  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.10.3" cross CrossVersion.binary),
+  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.11.0" cross CrossVersion.full),
   addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel"               %%% "cats-core"                  % catsV,
-    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.6"      % Test,
-    "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV % Test
+    "org.typelevel"               %%% "cats-core"                  % catsV.value,
+    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.6"            % Test,
+    "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV.value % Test
   )
 )
 
@@ -143,7 +144,7 @@ lazy val micrositeSettings = Seq(
     "-Ywarn-unused:imports",
     "-Xlint:-missing-interpolator,_"
   ),
-  libraryDependencies += "com.47deg" %% "github4s" % "0.20.0",
+  libraryDependencies += "com.47deg" %% "github4s" % github4sV.value,
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannel := true,
   micrositeGitterChannelUrl := "typelevel/cats",
