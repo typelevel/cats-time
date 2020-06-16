@@ -23,7 +23,8 @@ lazy val docs = project.in(file("modules/docs"))
   .dependsOn(coreJVM)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
-  .enablePlugins(TutPlugin)
+  .enablePlugins(MdocPlugin)
+  .settings(mdocIn := sourceDirectory.value / "main" / "mdoc")
 
 val catsV = Def.setting(if (scalaBinaryVersion.value == "2.11") "2.0.0" else "2.1.1")
 val catsTestkitV = Def.setting(if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1" else "1.0.1")
@@ -136,7 +137,7 @@ lazy val micrositeSettings = Seq(
     "white-color" -> "#FFFFFF"
   ),
   fork in tut := true,
-  scalacOptions in Tut --= Seq(
+  scalacOptions in Compile --= Seq(
     "-Xfatal-warnings",
     "-Ywarn-unused-import",
     "-Ywarn-numeric-widen",
