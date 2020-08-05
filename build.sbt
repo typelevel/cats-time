@@ -27,7 +27,7 @@ lazy val docs = project.in(file("modules/docs"))
   .settings(mdocIn := sourceDirectory.value / "main" / "mdoc")
 
 val catsV = Def.setting(if (scalaBinaryVersion.value == "2.11") "2.0.0" else "2.1.1")
-val catsTestkitV = Def.setting(if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1" else "1.0.1")
+val catsTestkitV = Def.setting(if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1" else "2.0.0")
 val github4sV = Def.setting(if (scalaBinaryVersion.value == "2.11") "0.20.1" else "0.24.1")
 
 lazy val contributors = Seq(
