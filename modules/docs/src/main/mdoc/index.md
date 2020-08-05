@@ -2,7 +2,7 @@
 layout: home
 
 ---
-# cats-time [![Build Status](https://travis-ci.com/ChristopherDavenport/cats-time.svg?branch=master)](https://travis-ci.com/ChristopherDavenport/cats-time) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.12)
+# cats-time [![Build Status](https://travis-ci.com/ChristopherDavenport/cats-time.svg?branch=master)](https://travis-ci.com/ChristopherDavenport/cats-time) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.13)
 
 Instances for Cats Typeclasses for Java 8 Time. Similar to the encoding that are offered in Circe and Cormorant.
 
@@ -23,16 +23,15 @@ libraryDependencies ++= Seq(
 
 First lets start with some imports.
 
-```tut:silent
+```scala mdoc:silent
 import io.chrisdavenport.cats.time._
-import cats._
 import cats.implicits._
 import java.time._
 ```
 
 Then we can display the `Show` instances.
 
-```tut:book
+```scala mdoc
 Duration.ofDays(3).show
 
 Instant.now.show
