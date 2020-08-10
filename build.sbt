@@ -1,25 +1,33 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-lazy val `cats-time` = project.in(file("."))
+val customScalaJSVersion = Option(System.getenv("SCALAJS_VERSION"))
+
+lazy val `cats-time` = project
+  .in(file("."))
   .disablePlugins(MimaPlugin)
   .settings(commonSettings, releaseSettings, skipOnPublishSettings)
   .aggregate(coreJS, coreJVM)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
-    .crossType(CrossType.Pure)
-    .in(file("modules/core"))
-    .settings(commonSettings, releaseSettings, mimaSettings)
-    .settings(
-      name := "cats-time"
-    ).jsSettings(
-      libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
-    )
+  .crossType(CrossType.Pure)
+  .in(file("modules/core"))
+  .settings(commonSettings, releaseSettings, mimaSettings)
+  .settings(
+    name := "cats-time"
+  )
+  .jsSettings(
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
+  )
+  .jvmSettings(
+    skip.in(publish) := customScalaJSVersion.isDefined
+  )
 
-lazy val coreJS  = core.js
+lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
 
-lazy val docs = project.in(file("modules/docs"))
-  .settings(commonSettings,  micrositeSettings, skipOnPublishSettings)
+lazy val docs = project
+  .in(file("modules/docs"))
+  .settings(commonSettings, micrositeSettings, skipOnPublishSettings)
   .dependsOn(coreJVM)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
@@ -27,7 +35,11 @@ lazy val docs = project.in(file("modules/docs"))
   .settings(mdocIn := sourceDirectory.value / "main" / "mdoc")
 
 val catsV = Def.setting(if (scalaBinaryVersion.value == "2.11") "2.0.0" else "2.1.1")
-val catsTestkitV = Def.setting(if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1" else "1.0.1")
+val catsTestkitV = Def.setting(
+  if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1"
+  else if (customScalaJSVersion.isDefined) "1.0.1"
+  else "2.0.0"
+)
 val github4sV = Def.setting(if (scalaBinaryVersion.value == "2.11") "0.20.1" else "0.24.1")
 
 lazy val contributors = Seq(
@@ -37,16 +49,14 @@ lazy val contributors = Seq(
 // General Settings
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
-
-  scalaVersion := "2.13.2",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.11", "2.11.12"),
-
-  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.11.0" cross CrossVersion.full),
-  addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
+  scalaVersion := "2.13.3",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.12", "2.11.12"),
+  addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.11.0" cross CrossVersion.full),
+  addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel"               %%% "cats-core"                  % catsV.value,
-    "org.scala-lang.modules"      %%% "scala-collection-compat"    % "2.1.6"            % Test,
-    "org.typelevel"               %%% "cats-testkit-scalatest"     % catsTestkitV.value % Test
+    "org.typelevel" %%% "cats-core"                        % catsV.value,
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.6"            % Test,
+    "org.typelevel" %%% "cats-testkit-scalatest"           % catsTestkitV.value % Test
   )
 )
 
@@ -80,13 +90,12 @@ lazy val releaseSettings = {
       for {
         username <- Option(System.getenv().get("SONATYPE_USERNAME"))
         password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
-      } yield
-        Credentials(
-          "Sonatype Nexus Repository Manager",
-          "oss.sonatype.org",
-          username,
-          password
-        )
+      } yield Credentials(
+        "Sonatype Nexus Repository Manager",
+        "oss.sonatype.org",
+        username,
+        password
+      )
     ).toSeq,
     publishArtifact in Test := false,
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
@@ -104,13 +113,14 @@ lazy val releaseSettings = {
     },
     pomExtra := {
       <developers>
-        {for ((username, name) <- contributors) yield
-        <developer>
+        {
+        for ((username, name) <- contributors)
+          yield <developer>
           <id>{username}</id>
           <name>{name}</name>
           <url>http://github.com/{username}</url>
         </developer>
-        }
+      }
       </developers>
     }
   )
@@ -152,16 +162,15 @@ lazy val micrositeSettings = Seq(
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
 )
 
-
 lazy val mimaSettings = {
   import sbtrelease.Version
 
   def semverBinCompatVersions(major: Int, minor: Int, patch: Int): Set[(Int, Int, Int)] = {
     val majorVersions: List[Int] = List(major)
-    val minorVersions : List[Int] = 
+    val minorVersions: List[Int] =
       if (major >= 1) Range(0, minor).inclusive.toList
       else List(minor)
-    def patchVersions(currentMinVersion: Int): List[Int] = 
+    def patchVersions(currentMinVersion: Int): List[Int] =
       if (minor == 0 && patch == 0) List.empty[Int]
       else if (currentMinVersion != minor) List(0)
       else Range(0, patch - 1).inclusive.toList
@@ -178,7 +187,7 @@ lazy val mimaSettings = {
     Version(version) match {
       case Some(Version(major, Seq(minor, patch), _)) =>
         semverBinCompatVersions(major.toInt, minor.toInt, patch.toInt)
-          .map{case (maj, min, pat) => maj.toString + "." + min.toString + "." + pat.toString}
+          .map { case (maj, min, pat) => maj.toString + "." + min.toString + "." + pat.toString }
       case _ =>
         Set.empty[String]
     }
@@ -194,7 +203,7 @@ lazy val mimaSettings = {
     mimaFailOnProblem := mimaVersions(version.value).toList.headOption.isDefined,
     mimaPreviousArtifacts := (mimaVersions(version.value) ++ extraVersions)
       .filterNot(excludedVersions.contains(_))
-      .map{v => 
+      .map { v =>
         val moduleN = moduleName.value + "_" + scalaBinaryVersion.value.toString
         organization.value % moduleN % v
       },
