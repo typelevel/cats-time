@@ -5,20 +5,15 @@ env:
   SCALA_VERSION: 2.12.12 # Used only for Doc Site
 jobs:
   validate:
-    name: Scala ${{ matrix.scala }}, Java ${{ matrix.java }}, Scala.js ${{ matrix.scalajs }}
+    name: Scala ${{ matrix.scala }}, Java ${{ matrix.java }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         java: [adopt@1.8, adopt@1.11, adopt@1.14]
-        scala: [2.11.12, 2.12.12, 2.13.3]
-        scalajs: [0.6.33, 1.1.1]
-        exclude:
-          - scala: 2.11.12
-            scalajs: 1.1.1
+        scala: [2.12.12, 2.13.3]
     env:
       SCALA_VERSION: ${{ matrix.scala }}
-      SCALAJS_VERSION: ${{ matrix.scalajs }}
     steps:
       - uses: actions/checkout@v2
         with:

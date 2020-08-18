@@ -1,7 +1,5 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-val customScalaJSVersion = Option(System.getenv("SCALAJS_VERSION"))
-
 lazy val `cats-time` = project
   .in(file("."))
   .disablePlugins(MimaPlugin)
@@ -18,9 +16,6 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
   .jsSettings(
     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
   )
-  .jvmSettings(
-    skip.in(publish) := customScalaJSVersion.isDefined
-  )
 
 lazy val coreJS = core.js
 lazy val coreJVM = core.jvm
@@ -34,14 +29,6 @@ lazy val docs = project
   .enablePlugins(MdocPlugin)
   .settings(mdocIn := sourceDirectory.value / "main" / "mdoc")
 
-val catsV = Def.setting(if (scalaBinaryVersion.value == "2.11") "2.0.0" else "2.1.1")
-val catsTestkitV = Def.setting(
-  if (scalaBinaryVersion.value == "2.11") "1.0.0-RC1"
-  else if (customScalaJSVersion.isDefined) "1.0.1"
-  else "2.0.0"
-)
-val github4sV = Def.setting(if (scalaBinaryVersion.value == "2.11") "0.20.1" else "0.24.1")
-
 lazy val contributors = Seq(
   "ChristopherDavenport" -> "Christopher Davenport"
 )
@@ -50,13 +37,13 @@ lazy val contributors = Seq(
 lazy val commonSettings = Seq(
   organization := "io.chrisdavenport",
   scalaVersion := "2.13.3",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.12", "2.11.12"),
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.12"),
   addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.11.0" cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % catsV.value,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.6"            % Test,
-    "org.typelevel" %%% "cats-testkit-scalatest"           % catsTestkitV.value % Test
+    "org.typelevel" %%% "cats-core"                        % "2.1.1",
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.6" % Test,
+    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.0.0" % Test
   )
 )
 
@@ -155,7 +142,7 @@ lazy val micrositeSettings = Seq(
     "-Ywarn-unused:imports",
     "-Xlint:-missing-interpolator,_"
   ),
-  libraryDependencies += "com.47deg" %% "github4s" % github4sV.value,
+  libraryDependencies += "com.47deg" %% "github4s" % "0.24.1",
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannel := true,
   micrositeGitterChannelUrl := "typelevel/cats",
