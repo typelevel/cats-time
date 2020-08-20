@@ -10,7 +10,7 @@ lazy val `cats-time` = project
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core"))
-  .settings(commonSettings, mimaSettings)
+  .settings(commonSettings)
   .settings(
     name := "cats-time"
   )
@@ -79,59 +79,6 @@ lazy val micrositeSettings = Seq(
   micrositeGitterChannelUrl := "typelevel/cats",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN")
 )
-
-lazy val mimaSettings = {
-  import sbtrelease.Version
-
-  def semverBinCompatVersions(major: Int, minor: Int, patch: Int): Set[(Int, Int, Int)] = {
-    val majorVersions: List[Int] = List(major)
-    val minorVersions: List[Int] =
-      if (major >= 1) Range(0, minor).inclusive.toList
-      else List(minor)
-    def patchVersions(currentMinVersion: Int): List[Int] =
-      if (minor == 0 && patch == 0) List.empty[Int]
-      else if (currentMinVersion != minor) List(0)
-      else Range(0, patch - 1).inclusive.toList
-
-    val versions = for {
-      maj <- majorVersions
-      min <- minorVersions
-      pat <- patchVersions(min)
-    } yield (maj, min, pat)
-    versions.toSet
-  }
-
-  def mimaVersions(version: String): Set[String] = {
-    Version(version) match {
-      case Some(Version(major, Seq(minor, patch), _)) =>
-        semverBinCompatVersions(major.toInt, minor.toInt, patch.toInt)
-          .map { case (maj, min, pat) => maj.toString + "." + min.toString + "." + pat.toString }
-      case _ =>
-        Set.empty[String]
-    }
-  }
-  // Safety Net For Exclusions
-  lazy val excludedVersions: Set[String] = Set("0.1.0")
-
-  // Safety Net for Inclusions
-  lazy val extraVersions: Set[String] = Set()
-
-  Seq(
-    mimaFailOnNoPrevious := false,
-    mimaFailOnProblem := mimaVersions(version.value).toList.headOption.isDefined,
-    mimaPreviousArtifacts := (mimaVersions(version.value) ++ extraVersions)
-      .filterNot(excludedVersions.contains(_))
-      .map { v =>
-        val moduleN = moduleName.value + "_" + scalaBinaryVersion.value.toString
-        organization.value % moduleN % v
-      },
-    mimaBinaryIssueFilters ++= {
-      import com.typesafe.tools.mima.core._
-      import com.typesafe.tools.mima.core.ProblemFilters._
-      Seq()
-    }
-  )
-}
 
 // General Settings
 inThisBuild(
