@@ -33,8 +33,14 @@ jobs:
           path: ~/.sbt
           key: ${{ runner.os }}-sbt-${{ hashFiles('build.sbt') }}
           restore-keys: ${{ runner.os }}-sbt-
-      - name: Run sbt tasks
-        run: csbt ++$SCALA_VERSION test:compile mimaReportBinaryIssues test doc
+      - name: Compile
+        run: csbt ++$SCALA_VERSION test:compile
+      #- name: Check compatibility
+      #  run: csbt ++$SCALA_VERSION mimaReportBinaryIssues
+      - name: Test
+        run: csbt ++$SCALA_VERSION test
+      - name: Scaladoc
+        run: csbt ++$SCALA_VERSION doc
   docs:
     name: Doc Site
     runs-on: ubuntu-latest
