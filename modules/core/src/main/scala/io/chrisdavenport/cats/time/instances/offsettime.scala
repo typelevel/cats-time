@@ -1,7 +1,7 @@
 package io.chrisdavenport.cats.time.instances
 
 import cats._
-import cats.implicits._
+import cats.syntax.all._
 import java.time.OffsetTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatter.ISO_OFFSET_TIME
