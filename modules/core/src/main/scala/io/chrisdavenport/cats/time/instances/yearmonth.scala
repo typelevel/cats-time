@@ -1,7 +1,7 @@
 package io.chrisdavenport.cats.time.instances
 
 import cats._
-import cats.implicits._
+import cats.syntax.all._
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
