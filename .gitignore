@@ -1,5 +1,6 @@
 target/
 .idea/
+.vscode
 # vim
 *.sw?
 
@@ -8,4 +9,6 @@ tags
 
 .metals
 .bloop
+.bsp
 project/metals.sbt
+project/project
