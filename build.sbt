@@ -38,7 +38,7 @@ lazy val commonSettings = Seq(
   addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.11.0" cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % "2.1.1",
+    "org.typelevel" %%% "cats-core"                        % "2.3.1",
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.6" % Test,
     "org.typelevel" %%% "cats-testkit-scalatest"           % "2.0.0" % Test
   )
