@@ -15,7 +15,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     name := "cats-time"
   )
   .jsSettings(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.0.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.1.0"
   )
 
 lazy val coreJS = core.js
@@ -35,12 +35,12 @@ lazy val docs = project
 lazy val commonSettings = Seq(
   scalaVersion := "2.13.3",
   crossScalaVersions := Seq(scalaVersion.value, "2.12.12"),
-  addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.11.0" cross CrossVersion.full),
+  addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.11.2" cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % "2.1.1",
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.3.2" % Test,
-    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.0.0" % Test
+    "org.typelevel" %%% "cats-core"                        % "2.3.1",
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.1.6" % Test,
+    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.1.0" % Test
   )
 )
 
@@ -48,10 +48,10 @@ lazy val micrositeSettings = Seq(
   micrositeName := "cats-time",
   micrositeDescription := "Cats Typeclasses for Java Time",
   micrositeAuthor := "Christopher Davenport",
-  micrositeGithubOwner := "ChristopherDavenport",
+  micrositeGithubOwner := "typelevel",
   micrositeGithubRepo := "cats-time",
   micrositeBaseUrl := "/cats-time",
-  micrositeDocumentationUrl := "https://christopherdavenport.github.io/cats-time",
+  micrositeDocumentationUrl := "https://typelevel.org/cats-time",
   micrositeFooterText := None,
   micrositeHighlightTheme := "atom-one-light",
   micrositePalette := Map(
@@ -92,7 +92,7 @@ inThisBuild(
         url("https://github.com/ChristopherDavenport")
       )
     ),
-    homepage := Some(url("https://github.com/ChristopherDavenport/cats-time")),
+    homepage := Some(url("https://github.com/typelevel/cats-time")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
     scalacOptions in (Compile, doc) ++= Seq(
@@ -100,7 +100,7 @@ inThisBuild(
       "-sourcepath",
       (baseDirectory in LocalRootProject).value.getAbsolutePath,
       "-doc-source-url",
-      "https://github.com/ChristopherDavenport/cats-time/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "https://github.com/typelevel/cats-time/blob/v" + version.value + "€{FILE_PATH}.scala"
     )
   )
 )
