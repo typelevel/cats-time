@@ -48,10 +48,10 @@ lazy val micrositeSettings = Seq(
   micrositeName := "cats-time",
   micrositeDescription := "Cats Typeclasses for Java Time",
   micrositeAuthor := "Christopher Davenport",
-  micrositeGithubOwner := "ChristopherDavenport",
+  micrositeGithubOwner := "typelevel",
   micrositeGithubRepo := "cats-time",
   micrositeBaseUrl := "/cats-time",
-  micrositeDocumentationUrl := "https://christopherdavenport.github.io/cats-time",
+  micrositeDocumentationUrl := "https://typelevel.org/cats-time",
   micrositeFooterText := None,
   micrositeHighlightTheme := "atom-one-light",
   micrositePalette := Map(
@@ -92,7 +92,7 @@ inThisBuild(
         url("https://github.com/ChristopherDavenport")
       )
     ),
-    homepage := Some(url("https://github.com/ChristopherDavenport/cats-time")),
+    homepage := Some(url("https://github.com/typelevel/cats-time")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
     scalacOptions in (Compile, doc) ++= Seq(
@@ -100,7 +100,7 @@ inThisBuild(
       "-sourcepath",
       (baseDirectory in LocalRootProject).value.getAbsolutePath,
       "-doc-source-url",
-      "https://github.com/ChristopherDavenport/cats-time/blob/v" + version.value + "€{FILE_PATH}.scala"
+      "https://github.com/typelevel/cats-time/blob/v" + version.value + "€{FILE_PATH}.scala"
     )
   )
 )
