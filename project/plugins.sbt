@@ -1,4 +1,4 @@
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"             % "0.1.17")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"             % "0.1.19")
 addSbtPlugin("org.lyranthe.sbt"          % "partial-unification"      % "1.1.2")
 addSbtPlugin("org.scala-js"              % "sbt-scalajs"              % "1.5.1")
 addSbtPlugin("org.portable-scala"        % "sbt-scalajs-crossproject" % "1.0.0")
