@@ -15,7 +15,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     name := "cats-time"
   )
   .jsSettings(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.2"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
   )
 
 lazy val coreJS = core.js
