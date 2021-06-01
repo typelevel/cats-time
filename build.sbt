@@ -15,7 +15,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     name := "cats-time"
   )
   .jsSettings(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.2.2"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
   )
 
 lazy val coreJS = core.js
@@ -33,14 +33,14 @@ lazy val docs = project
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.6",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.13"),
+  scalaVersion := "2.13.5",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.14"),
   addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.13.0" cross CrossVersion.full),
   addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
   libraryDependencies ++= Seq(
     "org.typelevel" %%% "cats-core"                        % "2.6.1",
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.4.4" % Test,
-    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.1.4" % Test
+    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.1.5" % Test
   )
 )
 
