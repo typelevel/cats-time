@@ -10,15 +10,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [adopt@1.8, adopt@1.11, adopt@1.14]
-        scala: [2.12.12, 2.13.3]
+        java: [adopt@1.8, adopt@1.11, adopt@1.16]
+        scala: [2.12.13, 2.13.6, 3.0.1]
     env:
       SCALA_VERSION: ${{ matrix.scala }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: olafurpg/setup-scala@v10
+      - uses: olafurpg/setup-scala@v12
         with:
           java-version: ${{ matrix.java }}
       - name: Cache dependencies
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: olafurpg/setup-scala@v10
+      - uses: olafurpg/setup-scala@v12
       - name: Cache dependencies
         uses: actions/cache@v2
         with:

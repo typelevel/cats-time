@@ -1,11 +1,13 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
+Global / onChangedBuildSource := ReloadOnSourceChanges
+
 lazy val `cats-time` = project
   .in(file("."))
   .disablePlugins(MimaPlugin)
   .enablePlugins(NoPublishPlugin)
   .settings(commonSettings)
-  .aggregate(coreJS, coreJVM)
+  .aggregate(core.jvm, core.jvm)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
@@ -18,13 +20,10 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
   )
 
-lazy val coreJS = core.js
-lazy val coreJVM = core.jvm
-
 lazy val docs = project
   .in(file("modules/docs"))
   .settings(commonSettings, micrositeSettings)
-  .dependsOn(coreJVM)
+  .dependsOn(core.jvm)
   .disablePlugins(MimaPlugin)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(MdocPlugin)
@@ -33,14 +32,12 @@ lazy val docs = project
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "2.13.6",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.14"),
-  addCompilerPlugin("org.typelevel" % "kind-projector"     % "0.13.1" cross CrossVersion.full),
-  addCompilerPlugin("com.olegpy"   %% "better-monadic-for" % "0.3.1"),
+  scalaVersion := "3.0.1",
+  crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "2.13.6"),
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % "2.6.1",
+    "org.typelevel"          %%% "cats-core"               % "2.6.1",
+    "org.typelevel"          %%% "cats-testkit-scalatest"  % "2.1.5",
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test,
-    "org.typelevel" %%% "cats-testkit-scalatest"           % "2.1.5" % Test
   )
 )
 
@@ -64,7 +61,7 @@ lazy val micrositeSettings = Seq(
     "gray-lighter" -> "#F4F3F4",
     "white-color" -> "#FFFFFF"
   ),
-  scalacOptions in Compile --= Seq(
+  Compile / scalacOptions --= Seq(
     "-Xfatal-warnings",
     "-Ywarn-unused-import",
     "-Ywarn-numeric-widen",
@@ -94,10 +91,10 @@ inThisBuild(
     homepage := Some(url("https://github.com/typelevel/cats-time")),
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
-    scalacOptions in (Compile, doc) ++= Seq(
+    Compile / doc / scalacOptions ++= Seq(
       "-groups",
       "-sourcepath",
-      (baseDirectory in LocalRootProject).value.getAbsolutePath,
+      (LocalRootProject / baseDirectory).value.getAbsolutePath,
       "-doc-source-url",
       "https://github.com/typelevel/cats-time/blob/v" + version.value + "€{FILE_PATH}.scala"
     )

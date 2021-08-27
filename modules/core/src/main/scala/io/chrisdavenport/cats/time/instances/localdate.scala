@@ -10,8 +10,10 @@ trait localdate {
   final def showLocalDate(formatter: DateTimeFormatter): Show[LocalDate] =
     Show[String].contramap(_.format(formatter))
 
-  implicit final val localdateInstances = 
-    new Show[LocalDate] with Order[LocalDate] with Hash[LocalDate]{
+  implicit final val localdateInstances: Show[LocalDate]
+    with Order[LocalDate]
+    with Hash[LocalDate] =
+    new Show[LocalDate] with Order[LocalDate] with Hash[LocalDate] {
       override def hash(x: LocalDate): Int = x.hashCode
       override def compare(x: LocalDate, y: LocalDate): Int = x.compareTo(y)
       override def show(x: LocalDate): String = x.format(ISO_LOCAL_DATE)
@@ -19,3 +21,4 @@ trait localdate {
 }
 
 object localdate extends localdate
+
