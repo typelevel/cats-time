@@ -3,10 +3,10 @@ package io.chrisdavenport.cats.time.instances
 import java.time.MonthDay
 import java.time.format.DateTimeFormatter
 
-import cats.{ Hash, Order, Show }
+import cats.{Hash, Order, Show}
 
 trait monthday {
-  implicit final val monthdayInstances =
+  implicit final val monthdayInstances: Show[MonthDay] with Order[MonthDay] with Hash[MonthDay] =
     new Show[MonthDay] with Order[MonthDay] with Hash[MonthDay] {
       def compare(x: MonthDay, y: MonthDay): Int = x.compareTo(y)
 
