@@ -33,10 +33,10 @@ lazy val docs = project
 // General Settings
 lazy val commonSettings = Seq(
   scalaVersion := "3.0.1",
-  crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "2.13.6"),
+  crossScalaVersions := Seq("3.0.1", "2.12.13", "2.13.6"),
   libraryDependencies ++= Seq(
     "org.typelevel"          %%% "cats-core"               % "2.6.1",
-    "org.typelevel"          %%% "cats-testkit-scalatest"  % "2.1.5",
+    "org.typelevel"          %%% "cats-testkit-scalatest"  % "2.1.5" % Test,
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test,
   )
 )
