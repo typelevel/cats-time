@@ -90,4 +90,3 @@ object TimeArbitraries {
 
   implicit val arbitraryMonth: Arbitrary[Month] = Arbitrary(arbitrary[MonthDay].map(_.getMonth))
 }
-
