@@ -7,7 +7,7 @@ lazy val `cats-time` = project
   .disablePlugins(MimaPlugin)
   .enablePlugins(NoPublishPlugin)
   .settings(commonSettings)
-  .aggregate(core.jvm, core.jvm)
+  .aggregate(core.jvm, core.js, tests.js, tests.jvm, testKit.jvm, testKit.js)
 
 lazy val core = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
@@ -18,6 +18,27 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
+  )
+
+lazy val tests = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/tests"))
+  .dependsOn(core, testKit)
+  .settings(commonSettings)
+  .settings(
+    name := "cats-time-tests",
+  )
+
+lazy val testKit = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/testkit"))
+  .settings(commonSettings)
+  .settings(
+    name := "cats-time-testkit",
+    libraryDependencies ++= Seq(
+      "org.scalacheck"         %%% "scalacheck"              % "1.15.4",
+      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0",
+    )
   )
 
 lazy val docs = project
@@ -69,7 +90,7 @@ lazy val micrositeSettings = Seq(
     "-Ywarn-unused:imports",
     "-Xlint:-missing-interpolator,_"
   ),
-  libraryDependencies += "com.47deg" %% "github4s" % "0.24.1",
+  libraryDependencies += "com.47deg" %% "github4s" % "0.29.1",
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannel := true,
   micrositeGitterChannelUrl := "typelevel/cats",
@@ -89,7 +110,7 @@ inThisBuild(
       )
     ),
     homepage := Some(url("https://github.com/typelevel/cats-time")),
-    licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+    licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
     pomIncludeRepository := { _ => false },
     Compile / doc / scalacOptions ++= Seq(
       "-groups",
