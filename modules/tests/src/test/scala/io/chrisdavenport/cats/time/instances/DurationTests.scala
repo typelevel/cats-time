@@ -4,9 +4,9 @@ import cats.tests.CatsSuite
 import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
 import cats.kernel.laws.discipline.CommutativeMonoidTests
-import TimeArbitraries._
 import java.time.Duration
 import io.chrisdavenport.cats.time.instances.duration._
+import io.chrisdavenport.cats.time.arb.TimeArbitraries._
 
 class DurationTests extends CatsSuite {
   checkAll("Duration", HashTests[Duration].hash)

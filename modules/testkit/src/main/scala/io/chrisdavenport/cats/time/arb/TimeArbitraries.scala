@@ -1,9 +1,9 @@
-package io.chrisdavenport.cats.time.instances
+package io.chrisdavenport.cats.time.arb
 
 import java.time._
 
 import org.scalacheck.{Arbitrary, Gen, Cogen}
-import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Arbitrary._
 
 trait TimeArbitraries {
 
