@@ -3,16 +3,9 @@ package io.chrisdavenport.cats.time.arb
 import java.time._
 
 import org.scalacheck.{Arbitrary, Gen, Cogen}
-import org.scalacheck.Arbitrary._
+import org.scalacheck.Arbitrary.arbitrary
 
 trait TimeArbitraries {
-
-  implicit def functionArbitrary[B, A: Arbitrary]: Arbitrary[B => A] =
-    Arbitrary {
-      for {
-        a <- Arbitrary.arbitrary[A]
-      } yield { (_: B) => a }
-    }
 
   implicit val arbitraryZoneId: Arbitrary[ZoneId] = Arbitrary {
     import scala.jdk.CollectionConverters._
