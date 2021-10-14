@@ -2,7 +2,7 @@ addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"             % "0.1.20"
 addSbtPlugin("org.lyranthe.sbt"          % "partial-unification"      % "1.1.2")
 addSbtPlugin("org.scala-js"              % "sbt-scalajs"              % "1.7.1")
 addSbtPlugin("org.portable-scala"        % "sbt-scalajs-crossproject" % "1.1.0")
-addSbtPlugin("com.github.sbt"              % "sbt-ci-release"           % "1.5.9")
+addSbtPlugin("com.github.sbt"              % "sbt-ci-release"           % "1.5.10")
 addSbtPlugin("io.chrisdavenport"         % "sbt-mima-version-check"   % "0.1.2")
 addSbtPlugin("io.chrisdavenport"         % "sbt-no-publish"           % "0.1.0")
 addSbtPlugin("pl.project13.scala"        % "sbt-jmh"                  % "0.4.3")
