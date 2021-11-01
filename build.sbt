@@ -58,6 +58,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.typelevel"          %%% "cats-core"               % "2.6.1",
     "org.typelevel"          %%% "cats-testkit-scalatest"  % "2.1.5" % Test,
+    "org.typelevel"          %%% "discipline-munit"        % "1.0.9" % Test,
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test,
   )
 )
