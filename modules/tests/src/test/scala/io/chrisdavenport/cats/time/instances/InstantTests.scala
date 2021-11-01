@@ -1,14 +1,13 @@
 package io.chrisdavenport.cats.time.instances
 
-
-import cats.tests.CatsSuite
 import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.OrderTests
-import java.time.Instant
-import io.chrisdavenport.cats.time.instances.instant._
 import io.chrisdavenport.cats.time.arb.TimeArbitraries._
+import io.chrisdavenport.cats.time.instances.instant._
+import java.time.Instant
+import munit.DisciplineSuite
 
-class InstantTests extends CatsSuite {
+class InstantTests extends DisciplineSuite {
   checkAll("Instant", HashTests[Instant].hash)
   checkAll("Instant", OrderTests[Instant].order)
 }
