@@ -1,14 +1,13 @@
 package io.chrisdavenport.cats.time.instances
 
-
-import cats.tests.CatsSuite
-import cats.kernel.laws.discipline.HashTests
 import cats.kernel.laws.discipline.EqTests
-import java.time.ZoneId
-import io.chrisdavenport.cats.time.instances.zoneid._
+import cats.kernel.laws.discipline.HashTests
 import io.chrisdavenport.cats.time.arb.TimeArbitraries._
+import io.chrisdavenport.cats.time.instances.zoneid._
+import java.time.ZoneId
+import munit.DisciplineSuite
 
-class ZoneIdTests extends CatsSuite {
+class ZoneIdTests extends DisciplineSuite {
   checkAll("ZoneId", EqTests[ZoneId].eqv)
   checkAll("ZoneId", HashTests[ZoneId].hash)
 }
