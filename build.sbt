@@ -17,7 +17,8 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
     name := "cats-time"
   )
   .jsSettings(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.3.0",
+    scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule))
   )
 
 lazy val tests = crossProject(JSPlatform, JVMPlatform)
@@ -28,6 +29,7 @@ lazy val tests = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "cats-time-tests",
   )
+  .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
 
 lazy val testKit = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
@@ -40,6 +42,7 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform)
       "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0",
     )
   )
+  .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
 
 lazy val docs = project
   .in(file("modules/docs"))
