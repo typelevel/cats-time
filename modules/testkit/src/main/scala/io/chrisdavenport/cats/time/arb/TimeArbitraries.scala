@@ -2,7 +2,7 @@ package io.chrisdavenport.cats.time.arb
 
 import java.time._
 
-import org.scalacheck.{Arbitrary, Gen, Cogen}
+import org.scalacheck.{Arbitrary, Cogen, Gen}
 import org.scalacheck.Arbitrary.arbitrary
 
 trait TimeArbitraries {
