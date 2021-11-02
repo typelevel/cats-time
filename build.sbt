@@ -100,6 +100,7 @@ lazy val docs = project
 
 // General Settings
 lazy val commonSettings = Seq(
+  organization := "org.typelevel",
   libraryDependencies ++= Seq(
     "org.typelevel" %%% "cats-core"                        % "2.6.1",
     "org.typelevel" %%% "cats-laws"                        % "2.6.1" % Test,
@@ -146,7 +147,7 @@ lazy val micrositeSettings = Seq(
 // General Settings
 inThisBuild(
   List(
-    organization := "io.chrisdavenport",
+    organization := "org.typelevel",
     developers := List(
       Developer(
         "ChristopherDavenport",
