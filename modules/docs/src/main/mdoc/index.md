@@ -2,7 +2,7 @@
 layout: home
 
 ---
-# cats-time [![Build Status](https://github.com/ChristopherDavenport/cats-time/workflows/CI/badge.svg)](https://github.com/ChristopherDavenport/cats-time/actions?query=workflow%3ACI+branch%3Amaster) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.chrisdavenport/cats-time_2.13)
+# cats-time [![Build Status](https://github.com/ChristopherDavenport/cats-time/workflows/CI/badge.svg)](https://github.com/ChristopherDavenport/cats-time/actions?query=workflow%3ACI+branch%3Amaster) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.typelevel/cats-time_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.typelevel/cats-time_2.13)
 
 Instances for Cats Typeclasses for Java 8 Time. Similar to the encoding that are offered in Circe and Cormorant.
 
@@ -15,7 +15,7 @@ To use cats-time in an existing SBT project with Scala 2.11 or a later version, 
 
 ```scala
 libraryDependencies ++= Seq(
-  "io.chrisdavenport" %% "cats-time"     % "<version>"
+  "org.typelevel" %% "cats-time"     % "<version>"
 )
 ```
 
@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
 First lets start with some imports.
 
 ```scala mdoc:silent
-import io.chrisdavenport.cats.time._
+import org.typelevel.cats.time._
 import cats.implicits._
 import java.time._
 ```
