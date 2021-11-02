@@ -21,4 +21,3 @@ trait offsetdatetime {
 }
 
 object offsetdatetime extends offsetdatetime
-

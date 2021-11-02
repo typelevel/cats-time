@@ -21,4 +21,3 @@ trait localtime {
 }
 
 object localtime extends localtime
-

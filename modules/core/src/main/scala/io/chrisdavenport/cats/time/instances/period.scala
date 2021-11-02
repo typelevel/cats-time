@@ -11,4 +11,3 @@ trait period {
 }
 
 object period extends period
-
