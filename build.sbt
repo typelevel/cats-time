@@ -71,7 +71,7 @@ lazy val tests = crossProject(JSPlatform, JVMPlatform)
   .dependsOn(core, testKit)
   .settings(commonSettings)
   .settings(
-    name := "cats-time-tests",
+    name := "cats-time-tests"
   )
   .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
 
@@ -82,8 +82,8 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "cats-time-testkit",
     libraryDependencies ++= Seq(
-      "org.scalacheck"         %%% "scalacheck"              % "1.15.4",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0",
+      "org.scalacheck" %%% "scalacheck"                      % "1.15.4",
+      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0"
     )
   )
   .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
@@ -101,10 +101,10 @@ lazy val docs = project
 // General Settings
 lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
-    "org.typelevel"          %%% "cats-core"               % "2.6.1",
-    "org.typelevel"          %%% "cats-laws"               % "2.6.1" % Test,
-    "org.typelevel"          %%% "discipline-munit"        % "1.0.9" % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test,
+    "org.typelevel" %%% "cats-core"                        % "2.6.1",
+    "org.typelevel" %%% "cats-laws"                        % "2.6.1" % Test,
+    "org.typelevel" %%% "discipline-munit"                 % "1.0.9" % Test,
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test
   )
 )
 
