@@ -21,4 +21,3 @@ trait localdate {
 }
 
 object localdate extends localdate
-

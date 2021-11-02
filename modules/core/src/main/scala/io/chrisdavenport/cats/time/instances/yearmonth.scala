@@ -22,4 +22,3 @@ trait yearmonth {
 }
 
 object yearmonth extends yearmonth
-

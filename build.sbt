@@ -2,6 +2,50 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
+val Scala212 = "2.12.15"
+val Scala213 = "2.13.6"
+val Scala3 = "3.1.0"
+
+val Scala212Cond = s"matrix.scala == '$Scala212'"
+
+ThisBuild / scalaVersion := Scala3
+ThisBuild / crossScalaVersions := Seq(Scala212, Scala213, Scala3)
+
+def rubySetupSteps(cond: Option[String]) = Seq(
+  WorkflowStep.Use(
+    UseRef.Public("ruby", "setup-ruby", "v1"),
+    name = Some("Setup Ruby"),
+    params = Map("ruby-version" -> "2.6.0"),
+    cond = cond
+  ),
+  WorkflowStep.Run(
+    List("gem install saas", "gem install jekyll -v 4.2.0"),
+    name = Some("Install microsite dependencies"),
+    cond = cond
+  )
+)
+
+ThisBuild / githubWorkflowPublishTargetBranches := Seq()
+ThisBuild / githubWorkflowEnv += ("JABBA_INDEX" -> "https://github.com/typelevel/jdk-index/raw/main/index.json")
+ThisBuild / githubWorkflowJavaVersions := Seq("adoptium@8", "adoptium@11", "adoptium@17")
+ThisBuild / githubWorkflowBuild := Seq(
+  WorkflowStep
+    .Sbt(
+      List("scalafmtCheckAll", "scalafmtSbtCheck"),
+      name = Some("Check formatting")
+    ),
+  WorkflowStep.Sbt(List("Test/compile"), name = Some("Compile")),
+  WorkflowStep.Sbt(List("test"), name = Some("Run tests")),
+  WorkflowStep.Sbt(List("doc"), name = Some("Build the Scaladoc")),
+  WorkflowStep.Sbt(
+    List("docs/makeMicrosite"),
+    name = Some("Build the Microsite"),
+    cond = Some(Scala212Cond)
+  )
+)
+ThisBuild / githubWorkflowBuildPreamble ++=
+  rubySetupSteps(Some(Scala212Cond))
+
 lazy val `cats-time` = project
   .in(file("."))
   .disablePlugins(MimaPlugin)
@@ -27,7 +71,7 @@ lazy val tests = crossProject(JSPlatform, JVMPlatform)
   .dependsOn(core, testKit)
   .settings(commonSettings)
   .settings(
-    name := "cats-time-tests",
+    name := "cats-time-tests"
   )
   .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
 
@@ -38,8 +82,8 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "cats-time-testkit",
     libraryDependencies ++= Seq(
-      "org.scalacheck"         %%% "scalacheck"              % "1.15.4",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0",
+      "org.scalacheck" %%% "scalacheck"                      % "1.15.4",
+      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0"
     )
   )
   .jsSettings(scalaJSLinkerConfig ~= (_.withModuleKind(ModuleKind.CommonJSModule)))
@@ -56,13 +100,11 @@ lazy val docs = project
 
 // General Settings
 lazy val commonSettings = Seq(
-  scalaVersion := "3.1.0",
-  crossScalaVersions := Seq("3.1.0", "2.12.15", "2.13.6"),
   libraryDependencies ++= Seq(
-    "org.typelevel"          %%% "cats-core"               % "2.6.1",
-    "org.typelevel"          %%% "cats-laws"               % "2.6.1" % Test,
-    "org.typelevel"          %%% "discipline-munit"        % "1.0.9" % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test,
+    "org.typelevel" %%% "cats-core"                        % "2.6.1",
+    "org.typelevel" %%% "cats-laws"                        % "2.6.1" % Test,
+    "org.typelevel" %%% "discipline-munit"                 % "1.0.9" % Test,
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.5.0" % Test
   )
 )
 

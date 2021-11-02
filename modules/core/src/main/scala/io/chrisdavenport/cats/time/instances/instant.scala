@@ -14,4 +14,3 @@ trait instant {
 }
 
 object instant extends instant
-
