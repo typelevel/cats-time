@@ -102,8 +102,8 @@ lazy val docs = project
 lazy val commonSettings = Seq(
   organization := "org.typelevel",
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % "2.6.1",
-    "org.typelevel" %%% "cats-laws"                        % "2.6.1" % Test,
+    "org.typelevel" %%% "cats-core"                        % "2.7.0",
+    "org.typelevel" %%% "cats-laws"                        % "2.7.0" % Test,
     "org.typelevel" %%% "discipline-munit"                 % "1.0.9" % Test,
     "org.scala-lang.modules" %%% "scala-collection-compat" % "2.6.0" % Test
   )
