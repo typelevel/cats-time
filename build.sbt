@@ -5,7 +5,7 @@ val Scala213 = "2.13.8"
 val Scala3 = "3.1.0"
 
 ThisBuild / tlBaseVersion := "0.5"
-ThisBuild / startYear := Some(2021)
+ThisBuild / startYear := Some(2018)
 ThisBuild / crossScalaVersions := Seq(Scala212, Scala3, Scala213)
 
 lazy val root = tlCrossRootProject.aggregate(core, tests, testKit)
@@ -74,6 +74,6 @@ inThisBuild(
         url("https://github.com/ChristopherDavenport")
       )
     ),
-    licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+    licenses := List("MIT" -> url("https://opensource.org/licenses/MIT"))
   )
 )
