@@ -38,7 +38,7 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "cats-time-testkit",
     libraryDependencies ++= Seq(
-      "org.scalacheck" %%% "scalacheck"                      % "1.15.4",
+      "org.scalacheck" %%% "scalacheck"                      % "1.16.0",
       "org.scala-lang.modules" %%% "scala-collection-compat" % "2.7.0"
     )
   )
