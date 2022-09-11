@@ -10,18 +10,19 @@ ThisBuild / crossScalaVersions := Seq(Scala212, Scala3, Scala213)
 
 lazy val root = tlCrossRootProject.aggregate(core, tests, testKit)
 
-lazy val core = crossProject(JSPlatform, JVMPlatform)
+lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/core"))
   .settings(commonSettings)
   .settings(
     name := "cats-time"
   )
-  .jsSettings(
+  .platformsSettings(JSPlatform, NativePlatform)(
     libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.4.0"
   )
+  .nativeSettings(commonNativeSettings)
 
-lazy val tests = crossProject(JSPlatform, JVMPlatform)
+lazy val tests = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/tests"))
   .dependsOn(core, testKit)
@@ -31,7 +32,7 @@ lazy val tests = crossProject(JSPlatform, JVMPlatform)
   )
   .enablePlugins(NoPublishPlugin)
 
-lazy val testKit = crossProject(JSPlatform, JVMPlatform)
+lazy val testKit = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/testkit"))
   .settings(commonSettings)
@@ -42,6 +43,7 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform)
       "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"
     )
   )
+  .nativeSettings(commonNativeSettings)
 
 lazy val docs = project
   .in(file("modules/docs"))
@@ -56,11 +58,15 @@ lazy val commonSettings = Seq(
   organization := "org.typelevel",
   libraryDependencies ++= Seq(
     "org.typelevel" %%% "cats-core"                        % "2.8.0",
-    "org.typelevel" %%% "cats-laws"                        % "2.8.0"  % Test,
-    "org.scalameta" %%% "munit"                            % "0.7.29" % Test,
-    "org.typelevel" %%% "discipline-munit"                 % "1.0.9"  % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"  % Test
+    "org.typelevel" %%% "cats-laws"                        % "2.8.0"    % Test,
+    "org.scalameta" %%% "munit"                            % "1.0.0-M6" % Test,
+    "org.typelevel" %%% "discipline-munit"                 % "2.0.0-M3" % Test,
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"    % Test
   )
+)
+
+lazy val commonNativeSettings = Seq(
+  tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.5.1").toMap
 )
 
 // General Settings
