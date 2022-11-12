@@ -23,13 +23,15 @@ First lets start with some imports.
 
 ```scala mdoc:silent
 import org.typelevel.cats.time._
-import cats.implicits._
+import cats.syntax.all._
 import java.time._
 ```
 
 Then we can display the `Show` instances.
 
 ```scala mdoc
+DayOfWeek.MONDAY.show
+
 Duration.ofDays(3).show
 
 Instant.now.show

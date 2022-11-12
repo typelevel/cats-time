@@ -21,23 +21,20 @@
 
 package org.typelevel.cats.time.instances
 
-trait all
-    extends dayofweek
-    with duration
-    with instant
-    with localdate
-    with localdatetime
-    with localtime
-    with monthday
-    with offsetdatetime
-    with offsettime
-    with period
-    with year
-    with yearmonth
-    with zoneddatetime
-    with zoneid
-    with zoneoffset
+import cats._
+import java.time.DayOfWeek
+import java.time.format.TextStyle
+import java.util.Locale
 
-trait all2 extends month
+trait dayofweek {
+  implicit final val dayofweekInstances: Show[DayOfWeek]
+    with Order[DayOfWeek]
+    with Hash[DayOfWeek] =
+    new Show[DayOfWeek] with Order[DayOfWeek] with Hash[DayOfWeek] {
+      override def hash(x: DayOfWeek): Int = x.hashCode
+      override def compare(x: DayOfWeek, y: DayOfWeek): Int = x.compareTo(y)
+      override def show(x: DayOfWeek): String = x.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+    }
+}
 
-object all extends all with all2
+object dayofweek extends dayofweek
