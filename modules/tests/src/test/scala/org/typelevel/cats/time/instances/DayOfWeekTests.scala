@@ -22,6 +22,7 @@
 package org.typelevel.cats.time.instances
 
 import cats.kernel.laws.discipline.{HashTests, OrderTests}
+import org.typelevel.cats.time.arb.TimeArbitraries._
 import org.typelevel.cats.time.instances.dayofweek._
 import munit.DisciplineSuite
 import java.time.DayOfWeek

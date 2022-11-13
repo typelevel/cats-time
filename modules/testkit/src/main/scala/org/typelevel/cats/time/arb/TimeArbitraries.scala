@@ -149,6 +149,11 @@ trait TimeArbitraries {
   implicit lazy val cogenMonth: Cogen[Month] =
     Cogen[Int].contramap(_.getValue)
 
+  implicit val arbitraryDayOfWeek: Arbitrary[DayOfWeek] = Arbitrary(
+    arbitrary[ZonedDateTime].map(_.getDayOfWeek)
+  )
+
+  implicit lazy val cogenDayOfWeek: Cogen[DayOfWeek] = Cogen[Int].contramap(_.getValue)
 }
 
 object TimeArbitraries extends TimeArbitraries
