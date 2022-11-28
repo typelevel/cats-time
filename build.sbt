@@ -40,7 +40,7 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     name := "cats-time-testkit",
     libraryDependencies ++= Seq(
       "org.scalacheck" %%% "scalacheck"                      % "1.17.0",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"
+      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.9.0"
     )
   )
   .nativeSettings(commonNativeSettings)
@@ -61,7 +61,7 @@ lazy val commonSettings = Seq(
     "org.typelevel" %%% "cats-laws"                        % "2.9.0"    % Test,
     "org.scalameta" %%% "munit"                            % "1.0.0-M6" % Test,
     "org.typelevel" %%% "discipline-munit"                 % "2.0.0-M3" % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.8.1"    % Test
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.9.0"    % Test
   )
 )
 
