@@ -21,23 +21,13 @@
 
 package org.typelevel.cats.time.instances
 
-trait all
-    extends dayofweek
-    with duration
-    with instant
-    with localdate
-    with localdatetime
-    with localtime
-    with monthday
-    with offsetdatetime
-    with offsettime
-    with period
-    with year
-    with yearmonth
-    with zoneddatetime
-    with zoneid
-    with zoneoffset
+import cats.kernel.laws.discipline.{HashTests, OrderTests}
+import org.typelevel.cats.time.arb.TimeArbitraries._
+import org.typelevel.cats.time.instances.dayofweek._
+import munit.DisciplineSuite
+import java.time.DayOfWeek
 
-trait all2 extends month
-
-object all extends all with all2
+class DayOfWeekTests extends DisciplineSuite {
+  checkAll("DayOfWeek", HashTests[DayOfWeek].hash)
+  checkAll("DayOfWeek", OrderTests[DayOfWeek].order)
+}
