@@ -103,47 +103,50 @@
         <h2 id="examples" class="section">Examples<a class="anchor-link right" href="#examples"><i class="icofont-laika">&#xef71;</i></a></h2>
         <p>First lets start with some imports.</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">org</span><span>.</span><span class="identifier">typelevel</span><span>.</span><span class="identifier">cats</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">_</span><span>
-</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">implicits</span><span>.</span><span class="identifier">_</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">syntax</span><span>.</span><span class="identifier">all</span><span>.</span><span class="identifier">_</span><span>
 </span><span class="keyword">import</span><span> </span><span class="identifier">java</span><span>.</span><span class="identifier">time</span><span>.</span><span class="identifier">_</span></code></pre>
         <p>Then we can display the <code>Show</code> instances.</p>
-        <pre><code class="nohighlight"><span class="type-name">Duration</span><span>.</span><span class="identifier">ofDays</span><span>(</span><span class="number-literal">3</span><span>).</span><span class="identifier">show</span><span>
-</span><span class="comment">// res0: String = &quot;PT72H&quot;
+        <pre><code class="nohighlight"><span class="type-name">DayOfWeek</span><span>.</span><span class="type-name">MONDAY</span><span>.</span><span class="identifier">show</span><span>
+</span><span class="comment">// res0: String = &quot;Monday&quot;
+</span><span>
+</span><span class="type-name">Duration</span><span>.</span><span class="identifier">ofDays</span><span>(</span><span class="number-literal">3</span><span>).</span><span class="identifier">show</span><span>
+</span><span class="comment">// res1: String = &quot;PT72H&quot;
 </span><span>
 </span><span class="type-name">Instant</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res1: String = &quot;2022-11-25T07:37:18.567Z&quot;
+</span><span class="comment">// res2: String = &quot;2022-11-28T15:32:49.583Z&quot;
 </span><span>
 </span><span class="type-name">LocalDate</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res2: String = &quot;2022-11-25&quot;
+</span><span class="comment">// res3: String = &quot;2022-11-28&quot;
 </span><span>
 </span><span class="type-name">LocalDateTime</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res3: String = &quot;2022-11-25T07:37:18.569&quot;
+</span><span class="comment">// res4: String = &quot;2022-11-28T15:32:49.585&quot;
 </span><span>
 </span><span class="type-name">LocalTime</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res4: String = &quot;07:37:18.571&quot;
+</span><span class="comment">// res5: String = &quot;15:32:49.586&quot;
 </span><span>
 </span><span class="type-name">MonthDay</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res5: String = &quot;11-25&quot;
+</span><span class="comment">// res6: String = &quot;11-28&quot;
 </span><span>
 </span><span class="type-name">OffsetDateTime</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res6: String = &quot;2022-11-25T07:37:18.573Z&quot;
+</span><span class="comment">// res7: String = &quot;2022-11-28T15:32:49.589Z&quot;
 </span><span>
 </span><span class="type-name">OffsetTime</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res7: String = &quot;07:37:18.575Z&quot;
+</span><span class="comment">// res8: String = &quot;15:32:49.591Z&quot;
 </span><span>
 </span><span class="type-name">Period</span><span>.</span><span class="identifier">ofWeeks</span><span>(</span><span class="number-literal">6</span><span>).</span><span class="identifier">show</span><span>
-</span><span class="comment">// res8: String = &quot;P42D&quot;
+</span><span class="comment">// res9: String = &quot;P42D&quot;
 </span><span>
 </span><span class="type-name">Year</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res9: String = &quot;2022&quot;
+</span><span class="comment">// res10: String = &quot;2022&quot;
 </span><span>
 </span><span class="type-name">YearMonth</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res10: String = &quot;2022-11&quot;
+</span><span class="comment">// res11: String = &quot;2022-11&quot;
 </span><span>
 </span><span class="type-name">ZoneId</span><span>.</span><span class="identifier">systemDefault</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res11: String = &quot;Etc/UTC&quot;
+</span><span class="comment">// res12: String = &quot;Etc/UTC&quot;
 </span><span>
 </span><span class="type-name">ZonedDateTime</span><span>.</span><span class="identifier">now</span><span>.</span><span class="identifier">show</span><span>
-</span><span class="comment">// res12: String = &quot;2022-11-25T07:37:18.58Z[Etc/UTC]&quot;</span></code></pre>
+</span><span class="comment">// res13: String = &quot;2022-11-28T15:32:49.596Z[Etc/UTC]&quot;</span></code></pre>
 
         <hr style="margin-top: 30px"/>
         <footer style="font-size: 90%; text-align: center">
