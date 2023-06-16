@@ -61,7 +61,7 @@ lazy val commonSettings = Seq(
     "org.typelevel" %%% "cats-laws"                        % "2.9.0"    % Test,
     "org.scalameta" %%% "munit"                            % "1.0.0-M8" % Test,
     "org.typelevel" %%% "discipline-munit"                 % "2.0.0-M3" % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.10.0"   % Test
+    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.11.0"   % Test
   )
 )
 
