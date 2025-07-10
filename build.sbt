@@ -18,7 +18,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     name := "cats-time"
   )
   .platformsSettings(JSPlatform, NativePlatform)(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.4.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0"
   )
   .nativeSettings(commonNativeSettings)
 
