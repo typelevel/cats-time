@@ -1,12 +1,11 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-val Scala212 = "2.12.20"
 val Scala213 = "2.13.16"
 val Scala3 = "3.3.6"
 
 ThisBuild / tlBaseVersion := "0.6"
 ThisBuild / startYear := Some(2018)
-ThisBuild / crossScalaVersions := Seq(Scala212, Scala3, Scala213)
+ThisBuild / crossScalaVersions := Seq(Scala3, Scala213)
 
 lazy val root = tlCrossRootProject.aggregate(core, tests, testKit)
 
@@ -18,7 +17,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     name := "cats-time"
   )
   .platformsSettings(JSPlatform, NativePlatform)(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.5.0"
   )
   .nativeSettings(commonNativeSettings)
 
