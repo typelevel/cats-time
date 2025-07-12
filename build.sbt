@@ -17,7 +17,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     name := "cats-time"
   )
   .platformsSettings(JSPlatform, NativePlatform)(
-    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.5.0"
+    libraryDependencies += "io.github.cquiroz" %%% "scala-java-time" % "2.6.0"
   )
   .nativeSettings(commonNativeSettings)
 
@@ -38,8 +38,7 @@ lazy val testKit = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .settings(
     name := "cats-time-testkit",
     libraryDependencies ++= Seq(
-      "org.scalacheck" %%% "scalacheck"                      % "1.17.0",
-      "org.scala-lang.modules" %%% "scala-collection-compat" % "2.11.0"
+      "org.scalacheck" %%% "scalacheck" % "1.18.1"
     )
   )
   .nativeSettings(commonNativeSettings)
@@ -56,11 +55,10 @@ lazy val docs = project
 lazy val commonSettings = Seq(
   organization := "org.typelevel",
   libraryDependencies ++= Seq(
-    "org.typelevel" %%% "cats-core"                        % "2.11.0",
-    "org.typelevel" %%% "cats-laws"                        % "2.11.0"    % Test,
-    "org.scalameta" %%% "munit"                            % "1.0.0-M10" % Test,
-    "org.typelevel" %%% "discipline-munit"                 % "2.0.0-M3"  % Test,
-    "org.scala-lang.modules" %%% "scala-collection-compat" % "2.11.0"    % Test
+    "org.typelevel" %%% "cats-core"        % "2.13.0",
+    "org.typelevel" %%% "cats-laws"        % "2.13.0" % Test,
+    "org.scalameta" %%% "munit"            % "1.1.1"  % Test,
+    "org.typelevel" %%% "discipline-munit" % "2.0.0"  % Test
   )
 )
 
