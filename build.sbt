@@ -1,6 +1,6 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-val Scala213 = "2.13.16"
+val Scala213 = "2.13.17"
 val Scala3 = "3.3.7"
 
 ThisBuild / tlBaseVersion := "0.6"
